@@ -1,0 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraController : MonoBehaviour
+{
+
+    public GameObject followTarget; //WE NEED OR CAMERA TO BE ABLE TO FOLLOW MORE THAN JUST THE PLAYER
+    private Vector3 targetPosition; //SELECT THE PLAYER POSITION YITHOUT CHANGING THE Z VALUE FROM THE CAMERA
+    public float cameraMoveSpeed; //THE SPEED THAT THE CAMERA CHASES THE PLAYER
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+    private void FixedUpdate()
+    {
+        targetPosition = new Vector3(followTarget.transform.position.x, followTarget.transform.position.y, transform.position.z);
+        //NOVO VETOR PARA SER A POSICAO DA CAMERA (ALVO) X DO ALVO, Y DO ALVO, Z DA PROPRIA CAMERA (NAO MUDAR)
+        transform.position = Vector3.Lerp(transform.position, targetPosition, cameraMoveSpeed*Time.fixedDeltaTime);     
+        //O TRANSFORM DA CAMERA TEM QUE SER MOVIMENTADO DE A (ELA MSM) PARA B (PLAYER) A UMA VELOCIDADE DE T (MOVESPEED)
+    }
+}
