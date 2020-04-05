@@ -1,0 +1,48 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BadSansController : MonoBehaviour
+{
+    //variables
+    public Rigidbody2D sansRb; //what to move
+    public float moveSpeed; //move speed
+    public bool moving; //check move
+
+    public float timeBetweenMove; //how much he waits
+    private float timeBetweenMoveCounter; //count to wait
+
+    public float timeToMove; //how much he moves
+    private float timeToMoveCounter; //count to move
+
+    private Vector3 moveDirection; //where to move
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        sansRb = GetComponent<Rigidbody2D>();
+        moveSpeed = 3f;
+        timeBetweenMoveCounter = timeBetweenMove;
+        timeToMoveCounter = timeToMove;
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (moving)
+        {
+            timeToMoveCounter -= Time.deltaTime;
+            sansRb.velocity = moveDirection;
+        }else
+        {
+            timeBetweenMoveCounter -= Time.deltaTime;
+            if(timeBetweenMoveCounter < 0f)
+            {
+                moving = true;
+                timeToMoveCounter = timeToMove;
+                moveDirection = new Vector3(Random.Range(-1f, 1f) * moveSpeed, Random.Range(-1f, 1f) * moveSpeed, 0f);
+            }
+        }
+    }
+}
